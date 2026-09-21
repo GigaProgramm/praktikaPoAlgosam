@@ -3,11 +3,9 @@
 import statistics
 import random as rd
 
-MAX_NUMBER = 100 # максимальное число при генерации
-
 # функция обработки статистических данных
 # принимает на вход режим работы и обрабатываемый массив данных
-# на выходе список с результатом 
+# на выходе список с результатом
 def stats_calculator(*args, mode="basic"):
     # обработка отсутсвия данных
 
@@ -25,7 +23,9 @@ def stats_calculator(*args, mode="basic"):
     if mode in ["advanced", "scientific"]:
         result["Медиана"] = statistics.median(args)
         try:
-            result["Мода"] = statistics.mode(args) # в новых версиях питона statistics.mode не выдаёт ощибки при отстутсвии моды
+            result["Мода"] = statistics.mode(
+                args
+            )  # в новых версиях питона statistics.mode не выдаёт ощибки при отстутсвии моды
         except statistics.StatisticsError:
             result["Мода"] = None
     # только для сиентифик
@@ -35,24 +35,40 @@ def stats_calculator(*args, mode="basic"):
 
     return result
 
-try:
-    # ввод данных от пользователя
-    mode_input = input("Введите режим(basic, advanced, scientific): ").strip().lower()
-    count_num = int(input("Введите кол-во генерируемых чисел: "))
-except ValueError:
-    print("Ошибка! Введите корректные данные")
+
+while True:
+    try:
+        # ввод данных от пользователя
+        down_border = int(input("Введите нижнюю границу генерации(больше 0): "))
+        up_border = int(input("Введите верхнюю границу генерации: "))
+        mode_input = input("Введите режим(basic, advanced, scientific): ").strip().lower()
+        count_num = int(input("Введите кол-во генерируемых чисел: "))
+        if count_num < 0:
+            print("Кол-во чисел должно быть больше нуля")
+            continue
+        if up_border < down_border:
+            print("Введите границы генерации корректно")
+            continue
+        if down_border < 0:
+            print("Введите нижнюю границу генерации больше 0")
+            continue
+        break
+    except ValueError:
+        print("Ошибка! Введите корректные данные")
 
 # обработка не правильных данных
 if mode_input not in ["basic", "advanced", "scientific"]:
+    print(f"Не верный ввод режима({mode_input}), использую basic")
     mode_input = "basic"
 # генерируем числа от 1 до MAX_NUMBER
-random_number = [rd.randint(1, MAX_NUMBER) for _ in range(count_num)] # генерируем массив с рандомными числами через списковое включение
+random_number = [
+    rd.randint(down_border, up_border) for _ in range(count_num)
+]  # генерируем массив с рандомными числами через списковое включение
 
 stats = stats_calculator(*random_number, mode=mode_input)
 
-# вывод результата 
+# вывод результата
 print(f"Сгенерированный массив: {random_number}\n")
 print(f"Выбранный режим: {mode_input}\n")
-for key, value in stats.items(): # получаю ключ-значение через items()
+for key, value in stats.items():  # получаю ключ-значение через items()
     print(f"{key}: {value}")
-
