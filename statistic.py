@@ -30,8 +30,15 @@ def stats_calculator(*args, mode="basic"):
             result["Мода"] = None
     # только для сиентифик
     if mode in ["scientific"]:
-        result["Среднее геометрическое"] = statistics.geometric_mean(args)
-        result["Среднее гармоническое"] = statistics.harmonic_mean(args)
+        # обработчик ошибок от модуля статистикс 
+        try:
+            result["Среднее геометрическое"] = statistics.geometric_mean(args)
+        except statistics.StatisticsError:
+            result["Среднее геометрическое"] = None
+        try:
+            result["Среднее гармоническое"] = statistics.harmonic_mean(args)
+        except statistics.StatisticsError:
+            result["Среднее гармоническое"] = None
 
     return result
 
@@ -60,7 +67,7 @@ while True:
 if mode_input not in ["basic", "advanced", "scientific"]:
     print(f"Не верный ввод режима({mode_input}), использую basic")
     mode_input = "basic"
-# генерируем числа от 1 до MAX_NUMBER
+# генерируем числа от down_border до up_border
 random_number = [
     rd.randint(down_border, up_border) for _ in range(count_num)
 ]  # генерируем массив с рандомными числами через списковое включение

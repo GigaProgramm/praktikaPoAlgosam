@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, date
-import random
+from random import randint
 
 
 # проверяет даты на корректность
@@ -13,7 +13,7 @@ def check_dates(*dates):
         except ValueError:
             continue
 
-    valid_dates.sort()
+    valid_dates.sort()  # сортирует как строки, а не как даты, но т.к. формат ГГГГ-ММ-ДД - результат совпадает с сортировкой по датам
     today = datetime.now().date()
     future_dates = [
         d for d in valid_dates
@@ -40,7 +40,7 @@ def generate_dates(count, down_br, up_br):  # работает с кол-вом 
     result = []
 
     for i in range(count):
-        random_day = random.randint(0, delta.days)
+        random_day = randint(0, delta.days)
         result.append((start_date + timedelta(days=random_day)).strftime("%Y-%m-%d"))
 
     return result
@@ -70,18 +70,14 @@ while True:
             print("Даты не должны быть одинаковыми!")
             continue
 
-        result_dates = check_dates(
-            *generate_dates(count_dates, down_border.split("-"), up_border.split("-"))
-        )  # генерация и проверка массива дат
+        generated_dates = generate_dates(count_dates, down_border.split("-"), up_border.split("-"))  # генерируем даты один раз и сохраняем в переменную, чтобы использовать и для вывода, и для проверки
+        report = check_dates(*generated_dates)  # проверка сгенерированных дат, возвращает словарь со статистикой
         break
     except ValueError:
         print("Ошибка! Введите корректные данные")
 
-generated = generate_dates(count_dates, down_border.split("-"), up_border.split("-"))
-report = check_dates(*generated)
-
 print("Сгенерированные даты: ")
-for i in result_dates:
+for i in generated_dates:  # тут именно список дат, а не словарь, поэтому выводятся сами даты
     print(i)
 
 # вывод результата
