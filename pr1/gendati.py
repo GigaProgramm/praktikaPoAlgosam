@@ -13,13 +13,13 @@ def check_dates(*dates):
         except ValueError:
             continue
 
-    valid_dates.sort()  # сортирует как строки, а не как даты, но т.к. формат ГГГГ-ММ-ДД - результат совпадает с сортировкой по датам
+    valid_dates.sort()  
     today = datetime.now().date()
     future_dates = [
         d for d in valid_dates
         if datetime.strptime(d, "%Y-%m-%d").date() > today
     ]
-
+    
     return {
         "valid_dates": valid_dates,
         "count": len(valid_dates),
@@ -32,7 +32,7 @@ def check_dates(*dates):
 # функция генерирует даты через дельту дат
 # принимает кол-во генерируемых дат
 # выводит массив с датами
-def generate_dates(count, down_br, up_br):  # работает с кол-вом дат
+def generate_dates(count, down_br, up_br):  # работает с кол-вом дат и границами генерации
     start_date = date(int(down_br[0]), int(down_br[1]), int(down_br[2]))  # начальная дата
     end_date = date(int(up_br[0]), int(up_br[1]), int(up_br[2]))  # конечная дата
     delta = end_date - start_date  # дельта дат
@@ -53,7 +53,7 @@ while True:
 
         up_border = input("Введите верхнюю границу генерации " \
         "дат(формата ГГГГ-ММ-ДД): ")
-
+    
         date_down_border = datetime.strptime(down_border, "%Y-%m-%d")
         date_up_border = datetime.strptime(up_border, "%Y-%m-%d")
 

@@ -5,13 +5,13 @@ while True:
         a = float(input("Введите коэффициент a: "))
         b = float(input("Введите коэффициент b: "))
         c = float(input("Введите коэффициент c: "))
-        if a == 0:
-            print("a = 0, уравнение не квадратное")
-            continue
         break
     except ValueError: 
         print("Введите кореектные данные")
-
+    if a == 0:
+        print("a = 0, уравнение не квадратное")
+        continue
+    
 # считаю дискриминант
 disk = b ** 2 - 4 * a * c
 
