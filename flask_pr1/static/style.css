@@ -1,0 +1,257 @@
+/* ===== Базовые настройки ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f3f4f6; /* Мягкий светло-серый фон */
+    color: #1f2937;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+body > * {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== Навигация (Меню) ===== */
+.navbar {
+    margin-bottom: 32px;
+}
+
+.menu {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    background: #ffffff;
+    padding: 6px;
+    border-radius: 14px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.menu li {
+    flex: 1;
+}
+
+.menu form {
+    width: 100%;
+}
+
+.menu button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.menu button:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+}
+
+/* ===== Заголовки ===== */
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+p {
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+p b {
+    background: #e0e7ff;
+    color: #4f46e5;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* ===== Список задач ===== */
+.task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px auto;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+/* Текст задачи */
+.task-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f2937;
+    word-break: break-word;
+    margin-right: 16px;
+}
+
+/* Выполненная задача */
+.task-item.done .task-title {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+/* Контейнер для кнопок */
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Статус "Готово" */
+.status-done {
+    color: #10b981;
+    font-weight: 600;
+    font-size: 14px;
+    background: #d1fae5;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+/* ===== Кнопки действий ===== */
+.btn-done, .btn-del {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-done {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.btn-done:hover {
+    background: #d1fae5;
+}
+
+.btn-del {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.btn-del:hover {
+    background: #fee2e2;
+}
+
+/* ===== Форма добавления ===== */
+/* Раньше здесь был селектор form[action="/"], который случайно
+   цеплял и формы в меню (url_for('index') тоже даёт "/").
+   Теперь стили привязаны к классу .add-form. */
+.add-form {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    background: #ffffff;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.add-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    color: #1f2937;
+}
+
+.add-form input::placeholder {
+    color: #9ca3af;
+}
+
+.add-form button {
+    background: #4f46e5; /* Красивый индиго */
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-family: inherit;
+}
+
+.add-form button:hover {
+    background: #4338ca;
+}
+
+/* ===== Адаптивность для телефонов ===== */
+@media (max-width: 500px) {
+    body {
+        padding: 24px 16px;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .task-title {
+        margin-right: 0;
+    }
+
+    .task-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .add-form {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .add-form button {
+        width: 100%;
+    }
+}

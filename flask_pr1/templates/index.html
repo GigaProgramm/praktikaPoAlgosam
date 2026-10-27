@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav class="navbar">
+  <ul class="menu">
+    <li>
+        <form action="{{ url_for('index')}}">
+            <button>Главная страница</button>
+        </form>
+    </li>
+    <li>
+        <form action="{{ url_for('about')}}">
+            <button>О проекте</button>
+        </form>
+    </li>
+  </ul>
+</nav>
+
+<h1>Список дел</h1>
+<p>Количество задач: <b>{{ tasks|length }}</b></p>
+
+<ul class="task-list">
+    {% for task in tasks %}
+        <li class="task-item {% if task.done %}done{% endif %}">
+            <span class="task-title">{{ task.title }}</span>
+
+            <div class="task-actions">
+                <a href="{{ url_for('edit', task_id=task.id) }}">
+                    {{ task.title }}
+                </a>
+                {% if task.done %}
+                    <span class="status-done">✓ Готово</span>
+                {% else %}
+                    <form method="post"
+                        action="{{ url_for('done', task_id=task.id) }}">
+                        <button type="submit" class="btn-done">
+                            Сделано
+                        </button>
+                    </form>
+                {% endif %}
+                <form method="post"
+                    action="{{ url_for('delete', task_id=task.id) }}">
+                    <button type="submit" class="btn-del">Удалить</button>
+                </form>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+<form class="add-form" method="post" action="/">
+    <input name="title" placeholder="Новое дело">
+    <button>Добавить</button>
+</form>
+
+{% endblock %}

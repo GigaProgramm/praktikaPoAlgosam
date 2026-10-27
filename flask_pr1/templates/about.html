@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav class="navbar">
+  <ul class="menu">
+    <li>
+        <form action="{{ url_for('index')}}">
+            <button>Главная страница</button>
+        </form>
+    </li>
+    <li>
+        <form action="{{ url_for('about')}}">
+            <button>О проекте</button>
+        </form>
+    </li>
+  </ul>
+</nav>
+
+<h2>О проектe</h2>
+<p>Тема проекта: ???</p>
+<p>Разработчик: Веселовский Никита</p>
+<p>Version: alpha 0.1</p>
+
+{% endblock %}
